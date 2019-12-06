@@ -6,7 +6,54 @@ poker=['黑桃A','黑桃2','黑桃3','黑桃4','黑桃5','黑桃6','黑桃7','�
 
 random.shuffle(poker)      #洗牌
 shuzhi = 0
-for i in poker:
-    temp = i[-1]
-    if temp == 'J' or temp == 'Q' or temp == 'k':
-        print(temp)
+
+
+import random
+
+
+def game():
+    '''开始猜大小的游戏'''
+    global new_pai
+    print("欢迎进入21点小游戏！！")
+    print('<<<<<<<<<<<<<<<<<<<< Game Starts! >>>>>>>>>>>>>>>>>>>>')
+    player = input("请输入您的游戏名：")
+    print("欢迎玩家{}".format(player))
+
+    # 1-10       JQK >   11 12 13     小王 14  大王 15
+
+    print("开始发牌")
+    your_pai = random.randint(1, 15)
+    if your_pai > 10:
+        your_pai = 10
+    print(your_pai)
+    while True:
+        ans = input("是否还要牌？ Y/N")
+        if ans == "Y":
+            new_pai = random.randint(1, 15)
+            print("本次手牌为：{}".format(new_pai))
+            if new_pai > 10:
+                new_pai = 10
+            your_pai += new_pai
+            print("总数为:{}".format(your_pai))
+        if your_pai > 21:
+            print("Game over!")
+            break
+        if ans == "N":
+            break
+
+    sys_pai = random.randint(1, 15)
+    print(sys_pai)
+    while sys_pai <= 21:
+        sys_newpai = random.randint(1, 15)
+        if sys_newpai > 10:
+            sys_newpai = 10
+        sys_pai += sys_newpai
+        if your_pai <= sys_pai:
+            print("系统玩家的手牌总和为{},you lose!".format(sys_pai))
+            break
+
+    else:
+        print("系统玩家的手牌总和为{},you win!".format(sys_pai))
+
+if __name__ == '__main__':
+    game()
