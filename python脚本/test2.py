@@ -1,3 +1,38 @@
-loadfile = open('userlist.txt', mode='rb')  # Ö»¶Á´ò¿ªÎÄ¼ş
-list = loadfile.read().decode("utf-8")
-result = list.split(' ')  # ½«ÓÃ»§ÁĞ±íĞÅÏ¢×ö³ÉÁĞ±í´æÔÚ
+import requests as req
+import re
+import pprint as pp
+
+heads = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Encoding': 'gzip,deflate,sdch',
+    'Accept-Language': 'zh-CN,zh;q=0.8',
+    'Cache-Control': 'max-age=0',
+    'Connection': 'keep-alive',
+    'Host': 'www.kuaidaili.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 5.1)'
+}
+ssn = req.Session()
+ssn.headers = heads
+
+ptnè¡¨ = re.compile(r'<div[^>]*?id="list".*?'
+                  r'(<table[^>]*>.*?</table>)',
+                  re.X | re.S)
+ptnè¡Œ = re.compile(r'<tr[^>]*>.*?</tr>', re.S)
+ptnæ ¼ = re.compile(r'<td[^>]*>(.*?)</td>', re.S)
+
+url = "http://www.kuaidaili.com/free/inha/"
+Proxys = [['IP', 'PORT', 'ç±»å‹', 'å“åº”é€Ÿåº¦', 'æœ€åéªŒè¯æ—¶é—´']]
+for i in range(1, 6):  # æŠ“å– 5 é¡µ
+    rsp = ssn.get(url + str(i))
+    rsp.encodeing = 'utf-8'
+    html = rsp.text
+    è¡¨ = ptnè¡¨.findall(html)
+    è¡Œ = ptnè¡Œ.findall(è¡¨[0])
+    for td in è¡Œ[1:]:
+        td = ptnæ ¼.findall(td)
+        td.pop(4)
+        td.pop(2)
+        Proxys.append(td)
+
+pp.pprint(Proxys)
+input('æš‚åœ')
