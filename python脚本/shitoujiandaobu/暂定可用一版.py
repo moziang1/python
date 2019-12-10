@@ -1,3 +1,19 @@
+'''
+目标
+# 优化程序代码，将某些功能性代码用函数来做
+# 我们在游戏中加入三个NPC（电脑操作角色）
+# 三个NPC每个人具备HP，MP，exp,gold,以及一个技能
+# 玩家开始游戏后，随机遇到其中的npc之一，每次猜拳对决胜利后都能减少对方的血量，NPC如果mp不为空的情况下，可以随机触发技能。
+# 如果npc血量清零了，则玩家获得该npc携带的经验和金币
+# 当npc败，随机下一个对手，但是，下一个npc对手肯定不是刚才遇到的。
+
+
+'''
+
+
+
+
+
 import random
 import time
 import urllib.request
@@ -180,157 +196,158 @@ class youxi():
         tempx = 0
 
         while True:
-
-            if tempx == 0 :  #等于0，代表没有npc上阵，需要上阵一名npc
-                # tempA的值是一名随机npc类的值
-                tempA = random.choice(list)
-                #拿到该npc的基础值
-                name = tempA.name
-                hp = tempA.hp
-                mp = tempA.mp
-                exp = tempA.exp
-                gold = tempA.gold
-
-
+            if jihuicishu > 0:
+                if tempx == 0 :  #等于0，代表没有npc上阵，需要上阵一名npc
+                    # tempA的值是一名随机npc类的值
+                    tempA = random.choice(list)
+                    #拿到该npc的基础值
+                    name = tempA.name
+                    hp = tempA.hp
+                    mp = tempA.mp
+                    exp = tempA.exp
+                    gold = tempA.gold
 
 
-                # 对象删除         (把class列表中的值拿出来对比name是否等于刚才拿到的name，如果是，则删除
-                for user in list[:]:
-                    if user.name == tempA.name:
-                        list.remove(user)
+                    # 对象删除         (把class列表中的值拿出来对比name是否等于刚才拿到的name，如果是，则删除
+                    for user in list[:]:
+                        if user.name == tempA.name:
+                            list.remove(user)
 
-                #并为tempx赋值为1表示已有npc上阵
-                tempx = 1
-                #实现了什么功能，我们将npc的值轮询放到这个函数中去运行
+                    #并为tempx赋值为1表示已有npc上阵
+                    tempx = 1
+                    #实现了什么功能，我们将npc的值轮询放到这个函数中去运行
 
-            else:
-                #判断npc阵亡
-                if hp <= 0:
-                    print(name,'阵亡')
-                    tempx = 0
-                    print('您获得npc',name,'的所有金币')
-                    jinbi += gold
-                    print('您获得经验',exp)
-                    jingyan += exp
-                    xixi = []
-                    if list == xixi:
-                        print('恭喜您击杀了所有的怪物，魔塔已经安全了。 ')
-                        break
-                    continue
-
-                print("\n")
-                print("\n")
-                print("您的等级为", level, "级")
-                print("您的经验值为", jingyan)
-                print("您剩余", jihuicishu, "次机会")
-                print("您持有金币数量为", jinbi)
-
-                #关于连胜机会次数+1
-                if lssw >= 5:  # 隐藏值为5，必定5连胜
-                    print("您达成", lssl, "连胜")  # 输出连胜次数，连胜的倍数
-                    # 设置要求，连胜次数5次以上，添加
-                if lssw >= 5:
-                    lssw -= 5
-                    jihuicishu += 1
-                    print("恭喜您，达成", 5 , "连胜增加一次挑战机会")
-
-                #机会次数小于等于2次时提醒购买次数
-                if jihuicishu <= 2 and jinbi >= 5:
-                    print("您的游戏机会只剩下", jihuicishu, "次机会了，是否花费5个金币购买生命次数")
-                    temp = input("y/n")
-                    if temp == 'y' or temp == 'Y':
-                        if jinbi >= 5:
-                            jinbi -= 5
-                            jihuicishu += 1
-                            print("您的机会还剩余", jihuicishu, "次机会")
-
-
-                #玩家游玩机会耗尽时，会选择退出游戏还是，购买次数
-                if jihuicishu >= 1:
-                    print("\n")
                 else:
-                    chishuhaojin = input("您的次数耗尽，是否退出游戏（q/Q），或购买次数（w）")
-                    if chishuhaojin == 'q' or chishuhaojin == "Q":
-                        break
-                    elif chishuhaojin == 'w' or chishuhaojin == 'W':
+                    #判断npc阵亡
+                    if hp <= 0:
+                        print(name,'阵亡')
+                        tempx = 0
+                        print('您获得npc',name,'的所有金币')
+                        jinbi += gold
+                        print('您获得经验',exp)
+                        jingyan += exp
+                        xixi = []
+                        if list == xixi:
+                            print('恭喜您击杀了所有的怪物，魔塔已经安全了。 ')
+                            break
+                        continue
+
+                    print("\n")
+                    print("\n")
+                    print("您的等级为", level, "级")
+                    print("您的经验值为", jingyan)
+                    print("您剩余", jihuicishu, "次机会")
+                    print("您持有金币数量为", jinbi)
+
+                    #关于连胜机会次数+1
+                    if lssw >= 5:  # 隐藏值为5，必定5连胜
+                        print("您达成", lssl, "连胜")  # 输出连胜次数，连胜的倍数
+                        # 设置要求，连胜次数5次以上，添加
+                    if lssw >= 5:
+                        lssw -= 5
+                        jihuicishu += 1
+                        print("恭喜您，达成", 5 , "连胜增加一次挑战机会")
+
+                    #机会次数小于等于2次时提醒购买次数
+                    if jihuicishu <= 2 and jinbi >= 5:
+                        print("您的游戏机会只剩下", jihuicishu, "次机会了，是否花费5个金币购买生命次数")
+                        temp = input("y/n")
+                        if temp == 'y' or temp == 'Y':
+                            if jinbi >= 5:
+                                jinbi -= 5
+                                jihuicishu += 1
+                                print("您的机会还剩余", jihuicishu, "次机会")
+
+
+                    #玩家游玩机会耗尽时，会选择退出游戏还是，购买次数
+                    if jihuicishu >= 1:
+                        print("\n")
+                    else:
+                        chishuhaojin = input("您的次数耗尽，是否退出游戏（q/Q），或购买次数（w）")
+                        if chishuhaojin == 'q' or chishuhaojin == "Q":
+                            break
+                        elif chishuhaojin == 'w' or chishuhaojin == 'W':
+                            continue
+
+
+
+
+
+                    #游戏本体，进行游戏
+                    jihuicishu -= 1
+
+
+                    #定义规则
+                    test1 = ['石头', '剪刀', '布']
+
+                    #随机列表test1中是元素
+                    ran = random.choice(test1)
+                    print(ran)  # 为了方便测试连胜，将电脑人的输出
+
+
+                    #指定释放技能的概率
+                    rans = random.randrange(5)
+                    if rans == 3:
+                        #npc释放技能
+                        if name == '强盗':
+                            jingyan = npc1.jn(jingyan)
+                        elif name == '扒手':
+                            if mp >= 5 :
+                                mp -= 5
+                                jinbi = npc2.jn(jinbi)
+                        elif name == '狐狸精怪':
+                            if mp >= 5:
+                                mp -= 5
+                                hp = npc3.jn(hp)
+
+
+                    print('\n')
+                    print('你碰到了精英怪',name)
+                    print('生命值',hp)
+                    print('法力值',mp)
+
+                    temp = input('我们来玩猜拳吧（石头，剪刀，布）任意一个')
+
+                    #输入为空检测
+                    if not temp.strip():
+                        print("输入不可为空")
+                        jihuicishu += 1
                         continue
 
 
+                    if temp == ran:
+                        print('平局')
+                    elif temp == '石头' and ran == '剪刀' or temp == '剪刀' and ran == '布' or temp == '布' and ran == '石头':
+                        print('你艰难的战胜了'+name+'(╯‵□′)╯︵┻━┻')
+                        hp -= 3
+                        lssl += 1  # 记录连胜次数
+                        lssw += 1  # 记载连胜次数的隐藏值
+                        jinbi += 1
+                        jingyan += random.randrange(20, 40)
+                        if jingyan > 100:
+                            level += 1
+                            jingyan -= 100
+                            jihuicishu += 5
+                            print("恭喜您，升级了，目前等级", level, "级，清空经验值,增加5次机会")
+                    elif temp == '石头' and ran == '布' or temp == '布' and ran == '剪刀' or temp == '剪刀' and ran == '石头':
+                        print( '电脑人'+name+'获胜')
+                        lssl = 0
 
+                    else:
+                        print('输入有误，重新输入')
 
-
-                #游戏本体，进行游戏
-                jihuicishu -= 1
-
-
-                #定义规则
-                test1 = ['石头', '剪刀', '布']
-
-                #随机列表test1中是元素
-                ran = random.choice(test1)
-                print(ran)  # 为了方便测试连胜，将电脑人的输出
-
-
-                #指定释放技能的概率
-                rans = random.randrange(5)
-                if rans == 3:
-                    #npc释放技能
-                    if name == '强盗':
-                        jingyan = npc1.jn(jingyan)
-                    elif name == '扒手':
-                        if mp >= 5 :
-                            mp -= 5
-                            jinbi = npc2.jn(jinbi)
-                    elif name == '狐狸精怪':
-                        if mp >= 5:
-                            mp -= 5
-                            hp = npc3.jn(hp)
-
-
-                print('\n')
-                print('你碰到了精英怪',name)
-                print('生命值',hp)
-                print('法力值',mp)
-
-                temp = input('我们来玩猜拳吧（石头，剪刀，布）任意一个')
-
-                #输入为空检测
-                if not temp.strip():
-                    print("输入不可为空")
-                    jihuicishu += 1
-                    continue
-
-
-                if temp == ran:
-                    print('平局')
-                elif temp == '石头' and ran == '剪刀' or temp == '剪刀' and ran == '布' or temp == '布' and ran == '石头':
-                    print('你艰难的战胜了'+name+'(╯‵□′)╯︵┻━┻')
-                    hp -= 3
-                    lssl += 1  # 记录连胜次数
-                    lssw += 1  # 记载连胜次数的隐藏值
-                    jinbi += 1
-                    jingyan += random.randrange(20, 40)
-                    if jingyan > 100:
-                        level += 1
-                        jingyan -= 100
-                        jihuicishu += 5
-                        print("恭喜您，升级了，目前等级", level, "级，清空经验值,增加5次机会")
-                elif temp == '石头' and ran == '布' or temp == '布' and ran == '剪刀' or temp == '剪刀' and ran == '石头':
-                    print( '电脑人'+name+'获胜')
-                    lssl = 0
-
-                else:
-                    print('输入有误，重新输入')
-
-                temp = input('是否进行存档（y）(回车继续')
-                if temp == 'y' or temp == 'Y' or temp == 'yes' or temp == 'YES':
-                    self.chushihcaiquan(uname, level, jinbi, jingyan, jihuicishu, lssl, lssw)
-                    print('存档中')
-                    time.sleep(5)
-                    print('存档完毕，是否退出游戏(q) 回车继续游戏')
-                    temp = input()
-                    if temp == 'q' or temp == 'Q':
-                        break
+                    temp = input('是否进行存档（y）(回车继续')
+                    if temp == 'y' or temp == 'Y' or temp == 'yes' or temp == 'YES':
+                        self.chushihcaiquan(uname, level, jinbi, jingyan, jihuicishu, lssl, lssw)
+                        print('存档中')
+                        time.sleep(5)
+                        print('存档完毕，是否退出游戏(q) 回车继续游戏')
+                        temp = input()
+                        if temp == 'q' or temp == 'Q':
+                            break
+            else:
+                print('生命次数耗尽，退出游戏')
+                break
 
     #猜拳游戏函数（用于作为引导）
     def caiquan(self,uname):
