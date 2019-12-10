@@ -1,15 +1,5 @@
-import urllib.request
-
-url = 'http://www.whatismyip.com.tw'
-
-proxy_support = urllib.request.ProxyHandler({'http':'118.24.172.149:1080'})
-
-opener = urllib.request.build_opener(proxy_support)
-
-urllib.request.install_opener(opener)
-opener.addheaders = [('User-Agent','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36')]
-
-response = urllib.request.urlopen(url)
-html = response.read().decode('utf-8')
-
-print(html)
+import test2       #导入了我们刚才编写的py文件
+#我们尝试实例化classtest文件中的wjy类
+wang=test2.wjy()           #实例化
+wang.say()      #调用王金扬类中的way功能
+wang.jian(12,24)     #调用王金扬类中的加法函数去计算

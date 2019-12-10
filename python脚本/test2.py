@@ -1,38 +1,33 @@
-import requests as req
-import re
-import pprint as pp
 
-heads = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Encoding': 'gzip,deflate,sdch',
-    'Accept-Language': 'zh-CN,zh;q=0.8',
-    'Cache-Control': 'max-age=0',
-    'Connection': 'keep-alive',
-    'Host': 'www.kuaidaili.com',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 5.1)'
-}
-ssn = req.Session()
-ssn.headers = heads
+import  random
+class npc1():
+    name = '哈哈1'
+    hp = 10
+    mp = 10
+    exp = 10
+    gold = 10
 
-ptn表 = re.compile(r'<div[^>]*?id="list".*?'
-                  r'(<table[^>]*>.*?</table>)',
-                  re.X | re.S)
-ptn行 = re.compile(r'<tr[^>]*>.*?</tr>', re.S)
-ptn格 = re.compile(r'<td[^>]*>(.*?)</td>', re.S)
+class npc2():
+    name = '哈哈2'
+    hp = 10
+    mp = 10
+    exp = 10
+    gold = 10
 
-url = "http://www.kuaidaili.com/free/inha/"
-Proxys = [['IP', 'PORT', '类型', '响应速度', '最后验证时间']]
-for i in range(1, 6):  # 抓取 5 页
-    rsp = ssn.get(url + str(i))
-    rsp.encodeing = 'utf-8'
-    html = rsp.text
-    表 = ptn表.findall(html)
-    行 = ptn行.findall(表[0])
-    for td in 行[1:]:
-        td = ptn格.findall(td)
-        td.pop(4)
-        td.pop(2)
-        Proxys.append(td)
+class npc3():
+    name = '哈哈3'
+    hp = 10
+    mp = 10
+    exp = 10
+    gold = 10
+npc1 = npc1()
+npc2 = npc2()
+npc3 = npc3()
 
-pp.pprint(Proxys)
-input('暂停')
+
+
+
+
+
+
+tempA = random.choice(list)()
