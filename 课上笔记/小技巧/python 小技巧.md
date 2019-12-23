@@ -33,3 +33,10 @@ def jiance(temp):
             continue
 ```
 
+
+
+
+
+
+
+## tkinter 常用命令合集
