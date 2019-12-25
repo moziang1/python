@@ -5,27 +5,27 @@ win = Tk()
 win.title('haha')
 
 import winsound
-
-#开始第一首歌
+	#开始第一首音乐的播放
 def s11():
     global ppp
     #播放音乐
-    ppp = winsound.PlaySound(r"test.wav", winsound.SND_ASYNC)
+    ppp = winsound.PlaySound(r"test.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
 
-#关闭第一首歌，开始第二首歌
+	#切换到第二首音乐
 def s12():
     global ppp
-    winsound.PlaySound(ppp,winsound.SND_PURGE)
-    ppp = winsound.PlaySound(r"123.wav", winsound.SND_ASYNC)
+    winsound.PlaySound(ppp,winsound.SND_PURGE)  #关闭上一首音乐
+    ppp = winsound.PlaySound(r"123.wav", winsound.SND_LOOP|winsound.SND_ASYNC)  #声音的循环播放winsound.SND_LOOP
+
     
-#关闭所有歌
+    #停止正在播放的音乐
 def s13():
     global ppp
     winsound.PlaySound(ppp,winsound.SND_PURGE)
 
 
 
-#一个变量，放着就好(
+#一个变量，放着就好
 ppp = winsound.PlaySound(None,winsound.SND_NODEFAULT)
 
 
